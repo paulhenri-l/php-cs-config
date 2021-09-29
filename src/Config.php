@@ -8,7 +8,9 @@ class Config extends \PhpCsFixer\Config
 {
     public const RULES = [
         '@paulhenri-l' => [
-            //
+            '@PSR1' => true,
+            '@PSR2' => true,
+            '@PSR12' => true,
         ]
     ];
 
@@ -20,11 +22,16 @@ class Config extends \PhpCsFixer\Config
     public function setRules(array $rules): ConfigInterface
     {
         foreach ($rules as $name => $rule) {
-            if ($rule === true && !array_key_exists($name, static::RULES)) {
+            if (!array_key_exists($name, static::RULES)) {
                 continue;
             }
 
-            $rules[$name] = static::RULES[$name];
+            if (!$rule) {
+                continue;
+            }
+
+            unset($rules[$name]);
+            $rules = array_merge($rules, static::RULES[$name]);
         }
 
         return parent::setRules($rules);
