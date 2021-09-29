@@ -11,7 +11,7 @@ composer require paulhenri-l/php-cs-config --dev
 
 ## Usage
 
-Inside your .php_cs config
+Inside your `.php-cs-fixer.php` config
 
 ```php
 <?php
