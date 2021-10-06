@@ -21,6 +21,8 @@ class Config extends \PhpCsFixer\Config
 
     public function setRules(array $rules): ConfigInterface
     {
+        $finalRules = [];
+
         foreach ($rules as $name => $rule) {
             if (!array_key_exists($name, static::RULES)) {
                 continue;
@@ -31,9 +33,11 @@ class Config extends \PhpCsFixer\Config
             }
 
             unset($rules[$name]);
-            $rules = array_merge($rules, static::RULES[$name]);
+            $finalRules = array_merge($finalRules, static::RULES[$name]);
         }
 
-        return parent::setRules($rules);
+        $finalRules = array_merge($finalRules, $rules);
+
+        return parent::setRules($finalRules);
     }
 }
